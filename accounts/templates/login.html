@@ -1,0 +1,41 @@
+<!-- templates/login.html -->
+
+{% extends "login_base.html" %}
+{% block title %}Авторизация{% endblock %}
+{% load static %}
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center min-vh-100 mt-5 mb-5">
+
+    <!-- Логотип -->
+    <div class="text-center mb-4">
+        <img src="{% static 'images/logo.png' %}" alt="Логотип компании" class="img-fluid" style="max-width: 300px;">
+        <h3 class="mt-3">Мониторинг скважин</h3>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title text-center mb-4">Войдите в систему</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">Имя пользователя</label>
+                        <input type="text" name="username" id="id_username" class="form-control" required autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label">Пароль</label>
+                        <input type="password" name="password" id="id_password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Войти</button>
+                </form>
+
+                {% if form.errors %}
+                    <div class="alert alert-danger mt-3">
+                        Имя или пароль неверны!
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

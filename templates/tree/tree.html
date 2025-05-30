@@ -1,0 +1,33 @@
+<!-- templates/tree/tree.html -->
+
+{% extends "base.html" %}
+{% load static %}
+{% load mptt_tags %}
+{% block title %}Объекты мониторинга{% endblock %}
+{% block content %}
+<h2>Объекты</h2>
+<ul class="tree-padding tree-vertical-lines tree-horizontal-lines tree-summaries tree-markers tree-buttons">
+    {% recursetree locations %}
+        <li>
+            {% if node.is_leaf_node %}
+                <a href="#" class="oil-link">
+                    <i class="fa-solid fa-oil-well"></i>
+                    {{ node.name }}
+                </a>
+            {% else %}
+            <details hx-get="{% url 'web_ui:load_children' node.pk %}"
+                     hx-trigger="toggle once from:details"
+                     hx-target="#children-{{ node.pk }}"
+                     hx-swap="innerHTML">
+                <summary>
+                    {{ node.name }}
+                </summary>
+                <ul id="children-{{ node.pk }}"></ul>
+            </details>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+
+{% endblock %}
+

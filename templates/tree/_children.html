@@ -1,0 +1,24 @@
+{% load mptt_tags %}
+
+<ul>
+    {% recursetree locations %}
+        <li>
+            {% if node.is_leaf_node and node.is_leaf %}
+                <a href="#" class="oil-link">
+                    <i class="fa-solid fa-oil-well"></i>
+                    {{ node.name }}
+                </a>
+            {% else %}
+            <details hx-get="{% url 'web_ui:load_children' node.pk %}"
+                     hx-trigger="toggle once from:details"
+                     hx-target="#children-{{ node.pk }}"
+                     hx-swap="innerHTML">
+                <summary>
+                    {{ node.name }}
+                </summary>
+                <ul id="children-{{ node.pk }}"></ul>
+            </details>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>

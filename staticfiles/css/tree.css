@@ -1,0 +1,22 @@
+.tree-node {
+    list-style-type: none;
+}
+
+.tree-node ul {
+    padding-left: 1rem;
+    display: none; /* По умолчанию скрыты */
+}
+
+.tree-node li:hover {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.tree-node .toggle-icon::before {
+    content: "▶";
+    margin-right: 0.5rem;
+}
+.tree-node .open .toggle-icon::before {
+    content: "▼";
+}
